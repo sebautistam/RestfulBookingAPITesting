@@ -1,0 +1,15 @@
+{
+  "name": "restful-booker-tests",
+  "type": "module",
+  "dependencies": {
+    "chai": "^6.2.2",
+    "got": "^13.0.0",
+    "mocha": "^11.7.5"
+  },
+  "scripts": {
+    "test-all": "mocha src/tests/ping.test.js && mocha src/tests/positive-tests.test.js && mocha src/tests/negative-tests.test.js",
+    "test-ping": "mocha src/tests/ping.test.js",
+    "test-positive": "mocha src/tests/positive-tests.test.js",
+    "test-negative": "mocha src/tests/negative-tests.test.js"
+  }
+}
