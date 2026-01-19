@@ -21,7 +21,7 @@ describe('POSITIVE TESTS: Full Booking Flow',  function() {
             });
         });
 
-        it('Create Booking response time is under 1000ms', function () {
+        it('Admin Login response time is under 1000ms', function () {
             expect(authResponse.timings.phases.total).to.be.below(1000);
         });
 
