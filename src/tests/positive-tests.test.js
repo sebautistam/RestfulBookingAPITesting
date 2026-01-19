@@ -2,6 +2,7 @@ import got from 'got';
 import { describe, it, before } from 'mocha';
 import { expect } from 'chai';
 import { BASE_URL, env, TIMEOUT } from '../environment/environment.js';
+import { bookingSchema, createBookingResponseSchema, authResponseSchema } from '../schemas/full-booking.schemas.js';
 
 describe('POSITIVE TESTS: Full Booking Flow',  function() {
 
@@ -10,7 +11,7 @@ describe('POSITIVE TESTS: Full Booking Flow',  function() {
 
     describe('Admin Login',  function() {
 
-        let authResponse;
+        let authResponse, authBody;
 
         before(async function() {
             authResponse = await got.post(`${BASE_URL}/auth`, {
@@ -19,6 +20,7 @@ describe('POSITIVE TESTS: Full Booking Flow',  function() {
                     password: env.admin_password
                 }
             });
+            authBody = JSON.parse(authResponse.body);
         });
 
         it('Admin Login response time is under 1000ms', function () {
@@ -34,8 +36,12 @@ describe('POSITIVE TESTS: Full Booking Flow',  function() {
         });
 
         it('Admin Login response contains token', function() {
-            const authBody = JSON.parse(authResponse.body);
             expect(authBody).to.have.property('token');
+        });
+
+        it('Admin Login response matches schema', function () {
+            const { error } = authResponseSchema.validate(authBody);
+            expect(error, error?.message).to.be.undefined;
         });
     
     });
@@ -89,6 +95,11 @@ describe('POSITIVE TESTS: Full Booking Flow',  function() {
             expect(createResponseBody.booking.bookingdates.checkout).to.equal(env.checkout_date);
             expect(createResponseBody.booking.additionalneeds).to.equal(env.additional_needs);
         });
+
+        it('Create Booking response matches schema', function () {
+            const { error } = createBookingResponseSchema.validate(createResponseBody);
+            expect(error, error?.message).to.be.undefined;
+        });
         
     });
 
@@ -113,6 +124,11 @@ describe('POSITIVE TESTS: Full Booking Flow',  function() {
 
         it('Get Created Booking has correct First Name', function() {
             expect(getResponseBody.firstname).to.equal(env.first_name);
+        });
+
+        it('Get Booking response matches schema', function () {
+            const { error } = bookingSchema.validate(getResponseBody);
+            expect(error, error?.message).to.be.undefined;
         });
     });
     
@@ -166,6 +182,11 @@ describe('POSITIVE TESTS: Full Booking Flow',  function() {
             expect(updateResponseBody.bookingdates.checkout).to.equal(env.checkout_date2);
             expect(updateResponseBody.additionalneeds).to.equal(env.additional_needs2);
         });    
+
+        it('Update Booking response matches schema', function () {
+            const { error } = bookingSchema.validate(updateResponseBody);
+            expect(error, error?.message).to.be.undefined;
+        });
     });
     
     describe('Delete Booking', function () {
