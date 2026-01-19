@@ -8,9 +8,10 @@
     "mocha": "^11.7.5"
   },
   "scripts": {
-    "test-all": "mocha src/tests/ping.test.js && mocha src/tests/positive-tests.test.js && mocha src/tests/negative-tests.test.js",
+    "test-all": "mocha src/tests/ping.test.js && mocha src/tests/full-booking.test.js && mocha src/tests/search.test.js && mocha src/tests/negative-tests.test.js",
     "test-ping": "mocha src/tests/ping.test.js",
-    "test-positive": "mocha src/tests/positive-tests.test.js",
+    "test-booking": "mocha src/tests/full-booking.test.js",
+    "test-search": "mocha src/tests/search.test.js",
     "test-negative": "mocha src/tests/negative-tests.test.js"
   }
 }

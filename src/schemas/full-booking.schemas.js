@@ -21,3 +21,11 @@ export const createBookingResponseSchema = Joi.object({
     booking: bookingSchema.required()
 }).unknown(false);
 
+export const bookingSearchItemSchema = Joi.object({
+    bookingid: Joi.number().integer().required()
+});
+
+export const bookingSearchResponseSchema = Joi.array()
+    .items(bookingSearchItemSchema)
+    .min(1);
+

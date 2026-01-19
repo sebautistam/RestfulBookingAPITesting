@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import { BASE_URL, env, TIMEOUT } from '../environment/environment.js';
 import { bookingSchema, createBookingResponseSchema, authResponseSchema } from '../schemas/full-booking.schemas.js';
 
-describe('POSITIVE TESTS: Full Booking Flow',  function() {
+describe('Full Booking Flow',  function() {
 
     this.timeout(TIMEOUT);
     let bookingIdCreated;
